@@ -1,0 +1,33 @@
+# Directories containing actual project code
+leaner_V1.1-main/
+server_V1.1-main/
+learners/
+server/
+logs/
+
+# Environment files
+.env
+.env.local
+
+# Node modules
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Temporary files
+*.tmp
+*.log
+nul
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# PDF files (except documentation)
+*.pdf
