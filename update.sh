@@ -47,7 +47,21 @@ else
 fi
 echo ""
 
-echo -e "${BLUE}Step 3: Rebuilding frontend...${NC}"
+echo -e "${BLUE}Step 3: Running database migrations...${NC}"
+cd "$BACKEND_DIR"
+if [ -f "database/create-notification-table.js" ]; then
+    node database/create-notification-table.js
+    if [ $? -eq 0 ]; then
+        echo -e "${GREEN}✓ Database migrations completed${NC}"
+    else
+        echo -e "${YELLOW}⚠ Database migration had issues (may already exist)${NC}"
+    fi
+else
+    echo -e "${YELLOW}⚠ No database migration script found, skipping...${NC}"
+fi
+echo ""
+
+echo -e "${BLUE}Step 4: Rebuilding frontend...${NC}"
 cd "$FRONTEND_DIR"
 npm run build
 if [ $? -eq 0 ]; then
@@ -58,7 +72,7 @@ else
 fi
 echo ""
 
-echo -e "${BLUE}Step 4: Deploying frontend to backend...${NC}"
+echo -e "${BLUE}Step 5: Deploying frontend to backend...${NC}"
 cd "$BACKEND_DIR"
 rm -rf public/*
 cp -r "$FRONTEND_DIR/dist/"* public/
